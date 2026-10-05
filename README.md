@@ -39,6 +39,14 @@ Nothing is padded to match: each library is measured at the smallest parameters
 that compute this correctly, and `config.jsonc` states what the engine actually
 builds — the envelope checks the two agree before anything is measured.
 
+## The engine takes the machine
+
+`mode` is `parallel`, not `cpu`. They are different engines, not two speeds of
+one: `cpu` computes in a single thread, and a number measured there is a number
+about one core, which is not what the answers beside this one are measured at.
+The thread count is the cores the runner reports rather than the library's own
+default of four, for the same reason.
+
 ## Accuracy
 
 The specification holds the worst error to 0.05 and asks that 85% of elements
