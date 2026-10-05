@@ -28,6 +28,22 @@ room for it as a scalar multiplication. That constraint was the challenge's,
 not this specification's, and this library evaluates a polynomial in one call,
 so the measured circuit is that call.
 
+## The ring is pinned, and why
+
+The engine chooses its own ring from the level budget, and at the five levels
+this circuit needs it chooses 2^14 — half the ring the OpenFHE and FIDESlib
+answers to this specification use. A smaller ring at a comparable modulus is a
+lower security level, and it is also faster, so a measurement taken there is
+not comparable with theirs.
+
+`solution/` therefore asks for 16384 slots, which forces the ring to 2^15 and
+the level budget up to 8. `solution-small-ring/` keeps what the library picks
+by itself, so both numbers can be seen for what they are.
+
+The modulus still differs: this library's primes are about 61 bits where
+OpenFHE's are 48, so at the same ring its chain is longer. That is a property
+of the library, not a setting.
+
 ## Accuracy
 
 The specification holds the worst error to 0.05 and asks that 85% of elements
